@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './widgets/list_item_types.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -66,9 +68,16 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Column(
             children: <Widget>[
-              Row(
-                
-              ),
+              SizedBox(height: 50,),
+              ListItemTypes(),
+              SizedBox(height: 20,),
+              ListItemTypes(),
+              SizedBox(height: 20,),
+              ListItemTypes(),
+              SizedBox(height: 20,),
+              ListItemTypes(),
+              SizedBox(height: 20,),
+              ListItemTypes(),
             ],
           ),
         ],
