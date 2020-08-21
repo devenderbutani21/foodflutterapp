@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 import './widgets/list_item_types.dart';
 
@@ -27,6 +29,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Map data;
+
+  Future<void> getData() async {
+    http.Response response =
+        await http.Client().get('http://10.0.2.2:5000/myData');
+    this.data = jsonDecode(response.body);
+    print(data);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size deviceSize = MediaQuery.of(context).size;
@@ -50,14 +67,18 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Row(
             children: <Widget>[
-              SizedBox(width: 40,),
+              SizedBox(
+                width: 40,
+              ),
               IconButton(
                 icon: Icon(Icons.menu),
                 onPressed: () {},
                 color: Colors.white,
                 iconSize: 25.0,
               ),
-              SizedBox(width: 250,),
+              SizedBox(
+                width: 250,
+              ),
               IconButton(
                 icon: Icon(Icons.shopping_cart),
                 onPressed: () {},
@@ -68,16 +89,10 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Column(
             children: <Widget>[
-              SizedBox(height: 50,),
-              ListItemTypes(),
-              SizedBox(height: 20,),
-              ListItemTypes(),
-              SizedBox(height: 20,),
-              ListItemTypes(),
-              SizedBox(height: 20,),
-              ListItemTypes(),
-              SizedBox(height: 20,),
-              ListItemTypes(),
+              SizedBox(
+                height: 90,
+              ),
+              ListItemTypes(data['1']['category'], 'Yellow', 'Mate'),
             ],
           ),
         ],
