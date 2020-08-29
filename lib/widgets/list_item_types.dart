@@ -5,7 +5,7 @@ class ListItemTypes extends StatelessWidget {
   final String items;
   final String url;
 
-  ListItemTypes(this.title,this.items, this.url);
+  ListItemTypes(this.title, this.items, this.url);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class ListItemTypes extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Text(
-                  'Pizza',
+                  title,
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 28.0,
@@ -43,7 +43,7 @@ class ListItemTypes extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '25 items',
+                  items + ' items',
                   style: TextStyle(
                     color: Colors.grey,
                     fontSize: 18.0,
@@ -69,7 +69,7 @@ class ListItemTypes extends StatelessWidget {
             left: -70.0,
             bottom: -32.5,
             child: Image.network(
-              'https://cdn.pixabay.com/photo/2017/12/05/20/10/pizza-3000285_1280.png',
+              url,
               height: 160,
               width: 160,
             ),
