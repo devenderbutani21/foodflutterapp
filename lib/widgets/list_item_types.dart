@@ -4,10 +4,20 @@ class ListItemTypes extends StatelessWidget {
   final String title;
   final String items;
   final String url;
-  final String img_height;
-  final String img_width;
+  final String imgHeight;
+  final String imgWidth;
+  final String posLeft;
+  final String posBottom;
 
-  ListItemTypes(this.title, this.items, this.url,this.img_height,this.img_width);
+  ListItemTypes(
+    this.title,
+    this.items,
+    this.url,
+    this.imgHeight,
+    this.imgWidth,
+    this.posLeft,
+    this.posBottom,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -68,12 +78,12 @@ class ListItemTypes extends StatelessWidget {
             ),
           ),
           Positioned(
-            left: -70.0,
-            bottom: -32.5,
+            left: double.parse(posLeft),
+            bottom: double.parse(posBottom),
             child: Image.network(
               url,
-              height: double.parse(img_height),
-              width: double.parse(img_width),
+              height: double.parse(imgHeight),
+              width: double.parse(imgWidth),
             ),
           ),
         ],

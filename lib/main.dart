@@ -39,7 +39,6 @@ class _MyHomePageState extends State<MyHomePage> {
     return data;
   }
 
-
   @override
   void initState() {
     super.initState();
@@ -52,58 +51,85 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return SafeArea(
       child: Scaffold(
-       body: Stack(
-         children: <Widget>[
-           Row(
-             children: <Widget>[
-               Container(
-                 height: deviceSize.height,
-                 width: deviceSize.width / 3,
-                 color: Color(0xffFD6A02),
-               ),
-               Container(
-                 height: deviceSize.height,
-                 width: deviceSize.width * 2 / 3,
-                 color: Color(0xfff9f8f6),
-               ),
-             ],
-           ),
-           Row(
-             children: <Widget>[
-               SizedBox(
-                 width: 40,
-               ),
-               IconButton(
-                 icon: Icon(Icons.menu),
-                 onPressed: () {},
-                 color: Colors.white,
-                 iconSize: 25.0,
-               ),
-               SizedBox(
-                 width: 250,
-               ),
-               IconButton(
-                 icon: Icon(Icons.shopping_cart),
-                 onPressed: () {},
-                 color: Colors.grey.shade400,
-                 iconSize: 25.0,
-               ),
-             ],
-           ),
-           Column(
-             children: <Widget>[
-               SizedBox(
-                 height: 90,
-               ),
-               ListItemTypes(data['1']['category'], data['1']['items'], data['1']['img_url'],data['1']['img_height'],data['1']['img_width']),
-               ListItemTypes(data['2']['category'], data['2']['items'], data['2']['img_url'],data['2']['img_height'],data['2']['img_width']),
-               ListItemTypes(data['3']['category'], data['3']['items'], data['3']['img_url'],data['3']['img_height'],data['3']['img_width']),
-               ListItemTypes(data['4']['category'], data['4']['items'], data['4']['img_url'],data['4']['img_height'],data['4']['img_width']),
-               ListItemTypes(data['5']['category'], data['5']['items'], data['5']['img_url'],data['5']['img_height'],data['5']['img_width']),
-             ],
-           ),
-         ],
-       ),
+        body: Stack(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Container(
+                  height: deviceSize.height,
+                  width: deviceSize.width / 3,
+                  color: Color(0xffFD6A02),
+                ),
+                Container(
+                  height: deviceSize.height,
+                  width: deviceSize.width * 2 / 3,
+                  color: Color(0xfff9f8f6),
+                ),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                SizedBox(
+                  width: 40,
+                ),
+                IconButton(
+                  icon: Icon(Icons.menu),
+                  onPressed: () {},
+                  color: Colors.white,
+                  iconSize: 25.0,
+                ),
+                SizedBox(
+                  width: 250,
+                ),
+                IconButton(
+                  icon: Icon(Icons.shopping_cart),
+                  onPressed: () {},
+                  color: Colors.grey.shade400,
+                  iconSize: 25.0,
+                ),
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 90,
+                ),
+                // ListItemTypes(data['1']['category'], data['1']['items'], data['1']['img_url'],data['1']['img_height'],data['1']['img_width'],data['1']['pos_left'],data['1']['pos_bottom'],),
+                // ListItemTypes(data['2']['category'], data['2']['items'], data['2']['img_url'],data['2']['img_height'],data['2']['img_width'],data['2']['pos_left'],data['2']['pos_bottom'],),
+                // ListItemTypes(data['3']['category'], data['3']['items'], data['3']['img_url'],data['3']['img_height'],data['3']['img_width'],data['3']['pos_left'],data['3']['pos_bottom'],),
+                // ListItemTypes(data['4']['category'], data['4']['items'], data['4']['img_url'],data['4']['img_height'],data['4']['img_width'],data['4']['pos_left'],data['4']['pos_bottom'],),
+                // ListItemTypes(data['5']['category'], data['5']['items'], data['5']['img_url'],data['5']['img_height'],data['5']['img_width'],data['5']['pos_left'],data['5']['pos_bottom'],),
+                Expanded(
+                  child: FutureBuilder(
+                    builder: (context, projectSnap) {
+                      if (projectSnap.connectionState == ConnectionState.none &&
+                          projectSnap.hasData == null) {
+                        print('project snapshot data is: ${projectSnap.data}');
+                        return Container();
+                      } else {
+                        return ListView.builder(
+                          itemCount: projectSnap.data.length,
+                          itemBuilder: (context, index) {
+                            return ListItemTypes(
+                                projectSnap.data[index]['category'],
+                                projectSnap.data[index]['items'],
+                                projectSnap.data[index]['img_url'],
+                                projectSnap.data[index]['img_height'],
+                                projectSnap.data[index]['img_width'],
+                                projectSnap.data[index]['pos_left'],
+                                projectSnap.data[index]['pos_bottom'],
+                            );
+                          },
+                        );
+                      }
+                    },
+                    future: getProjectDetails(),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
